@@ -1,3 +1,4 @@
+# encoding:utf-8
 # PyAlgoTrade
 #
 # Copyright 2011-2015 Gabriel Martin Becedillas Ruiz
@@ -34,6 +35,7 @@ class EventWindow(object):
 
     .. note::
         这是一个基类，不应该直接被调用.
+        
     """
 
     def __init__(self, windowSize, dtype=float, skipNone=True):
@@ -71,8 +73,9 @@ class EventBasedFilter(dataseries.SequenceDataSeries):
     :type dataSeries: :class:`pyalgotrade.dataseries.DataSeries`.
     :param eventWindow: 用于计算新值的EventWindow实例。
     :type eventWindow: :class:`EventWindow`.
-    :param 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。
+    :param maxLen: 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目.
     :type maxLen: int.
+    
     """
 
     def __init__(self, dataSeries, eventWindow, maxLen=dataseries.DEFAULT_MAX_LEN):
@@ -94,3 +97,4 @@ class EventBasedFilter(dataseries.SequenceDataSeries):
 
     def getEventWindow(self):
         return self.__eventWindow
+
