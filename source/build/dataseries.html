@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dataseries – 数据序列基类 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="index.html" />
+    <link rel="up" title="代码的文档说明" href="code.html" />
+    <link rel="next" title="feed – 数据源基类" href="feed.html" />
+    <link rel="prev" title="bar – 品种的价格" href="bar.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="feed.html" title="feed – 数据源基类"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="bar.html" title="bar – 品种的价格"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" accesskey="U">代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="bar.html"
+                        title="上一章">bar &#8211; 品种的价格</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="feed.html"
+                        title="下一章">feed &#8211; 数据源基类</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dataseries.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dataseries">
+<h1>dataseries &#8211; 数据序列基类<a class="headerlink" href="#dataseries" title="永久链接至标题">¶</a></h1>
+<p>数据序列是管理time-series数据的抽象类。</p>
+<span class="target" id="module-pyalgotrade.dataseries"></span><dl class="class">
+<dt id="pyalgotrade.dataseries.DataSeries">
+<em class="property">class </em><code class="descclassname">pyalgotrade.dataseries.</code><code class="descname">DataSeries</code><a class="headerlink" href="#pyalgotrade.dataseries.DataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base class for data series.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">这是一个基类，不应该直接被调用.</p>
+</div>
+<dl class="method">
+<dt id="pyalgotrade.dataseries.DataSeries.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.DataSeries.__getitem__" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns the value at a given position/slice. It raises IndexError if the position is invalid,
+or TypeError if the key type is invalid.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.DataSeries.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.DataSeries.__len__" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns the number of elements in the data series.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.DataSeries.getDateTimes">
+<code class="descname">getDateTimes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.DataSeries.getDateTimes" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns a list of <code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code> associated with each value.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.dataseries.SequenceDataSeries">
+<em class="property">class </em><code class="descclassname">pyalgotrade.dataseries.</code><code class="descname">SequenceDataSeries</code><span class="sig-paren">(</span><em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.SequenceDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a></p>
+<p>一个在内存序列中存放的DataSeries.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>maxLen</strong> (<em>int.</em>) &#8211; 允许驻留的最大数量。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.dataseries.SequenceDataSeries.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.SequenceDataSeries.append" title="永久链接至目标">¶</a></dt>
+<dd><p>添加一个值.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.SequenceDataSeries.appendWithDateTime">
+<code class="descname">appendWithDateTime</code><span class="sig-paren">(</span><em>dateTime</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.SequenceDataSeries.appendWithDateTime" title="永久链接至目标">¶</a></dt>
+<dd><p>添加一个带dateTime的值.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">如果dateTime非None，它必须大于原队列最后一个值。</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.SequenceDataSeries.getMaxLen">
+<code class="descname">getMaxLen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.SequenceDataSeries.getMaxLen" title="永久链接至目标">¶</a></dt>
+<dd><p>返回允许驻留的最大数量</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.SequenceDataSeries.setMaxLen">
+<code class="descname">setMaxLen</code><span class="sig-paren">(</span><em>maxLen</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.SequenceDataSeries.setMaxLen" title="永久链接至目标">¶</a></dt>
+<dd><p>调整允许驻留的最大数量</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.dataseries.aligned"></span><dl class="function">
+<dt id="pyalgotrade.dataseries.aligned.datetime_aligned">
+<code class="descclassname">pyalgotrade.dataseries.aligned.</code><code class="descname">datetime_aligned</code><span class="sig-paren">(</span><em>ds1</em>, <em>ds2</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.aligned.datetime_aligned" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns two dataseries that exhibit only those values whose datetimes are in both dataseries.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ds1</strong> (<code class="xref py py-class docutils literal"><span class="pre">DataSeries</span></code>.) &#8211; 一个DataSeries实例.</li>
+<li><strong>ds2</strong> (<code class="xref py py-class docutils literal"><span class="pre">DataSeries</span></code>.) &#8211; 一个DataSeries实例.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold for the returned <code class="xref py py-class docutils literal"><span class="pre">DataSeries</span></code>.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.dataseries.bards"></span><dl class="class">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries">
+<em class="property">class </em><code class="descclassname">pyalgotrade.dataseries.bards.</code><code class="descname">BarDataSeries</code><span class="sig-paren">(</span><em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.dataseries.SequenceDataSeries" title="pyalgotrade.dataseries.SequenceDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.SequenceDataSeries</span></code></a></p>
+<p>一个 <a class="reference internal" href="bar.html#pyalgotrade.bar.Bar" title="pyalgotrade.bar.Bar"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.bar.Bar</span></code></a> 的实例DataSeries.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>maxLen</strong> (<em>int.</em>) &#8211; 驻留的最大数量。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getAdjCloseDataSeries">
+<code class="descname">getAdjCloseDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getAdjCloseDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的复权价序列</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getCloseDataSeries">
+<code class="descname">getCloseDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getCloseDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的收盘价序列</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getHighDataSeries">
+<code class="descname">getHighDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getHighDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的最高价序列</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getLowDataSeries">
+<code class="descname">getLowDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getLowDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的最低价序列</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getOpenDataSeries">
+<code class="descname">getOpenDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getOpenDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的开盘价序列</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getPriceDataSeries">
+<code class="descname">getPriceDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getPriceDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的收盘价或者复权收盘价序列（根据是否启用复权决定）</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.dataseries.bards.BarDataSeries.getVolumeDataSeries">
+<code class="descname">getVolumeDataSeries</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.bards.BarDataSeries.getVolumeDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 的成交量序列</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.dataseries.resampled"></span><dl class="class">
+<dt id="pyalgotrade.dataseries.resampled.ResampledBarDataSeries">
+<em class="property">class </em><code class="descclassname">pyalgotrade.dataseries.resampled.</code><code class="descname">ResampledBarDataSeries</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>frequency</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.resampled.ResampledBarDataSeries" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.dataseries.bards.BarDataSeries" title="pyalgotrade.dataseries.bards.BarDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.bards.BarDataSeries</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.resampled.DSResampler</span></code></p>
+<p>创建一个更大频率的BarDataSeries，并将其作为一个新值推送到被重采样的位置。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="#pyalgotrade.dataseries.bards.BarDataSeries" title="pyalgotrade.dataseries.bards.BarDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.bards.BarDataSeries</span></code></a>) &#8211; 需要被重采样的DataSeries</li>
+<li><strong>frequency</strong> &#8211; 用于分组的秒级频率。必须大于0。</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 驻留的最大数量。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<ul class="last">
+<li><dl class="first docutils">
+<dt>支持的重采样频率范围:</dt>
+<dd><ul class="first last simple">
+<li>日线以下频率</li>
+<li>日线（bar.Frequency.DAY）</li>
+<li>月线（bar.Frequency.MONTH）</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<dl class="method">
+<dt id="pyalgotrade.dataseries.resampled.ResampledBarDataSeries.checkNow">
+<code class="descname">checkNow</code><span class="sig-paren">(</span><em>dateTime</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.dataseries.resampled.ResampledBarDataSeries.checkNow" title="永久链接至目标">¶</a></dt>
+<dd><p>强制重采样检查。 根据重采样频率、当前时间产生一个新值。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>dateTime</strong> (<code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code>) &#8211; 当前时间</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="feed.html" title="feed – 数据源基类"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="bar.html" title="bar – 品种的价格"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" >代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>

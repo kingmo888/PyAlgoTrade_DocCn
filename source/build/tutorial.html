@@ -1,0 +1,858 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>简明教程 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="index.html" />
+    <link rel="next" title="代码的文档说明" href="code.html" />
+    <link rel="prev" title="简介" href="intro.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="code.html" title="代码的文档说明"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="简介"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">內容目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">简明教程</a><ul>
+<li><a class="reference internal" href="#id2">交易</a></li>
+<li><a class="reference internal" href="#id3">优化</a></li>
+<li><a class="reference internal" href="#id4">绘图</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="intro.html"
+                        title="上一章">简介</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="code.html"
+                        title="下一章">代码的文档说明</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tutorial-label">
+<span id="id1"></span><h1>简明教程<a class="headerlink" href="#tutorial-label" title="永久链接至标题">¶</a></h1>
+<p>本教程的目的是让你能够快速入门PyAlgoTrade。
+如之前简介中所述，PyAlgoTrade的目标是帮助你测试股票交易策略。
+一般而言，如果你有一个交易策略的构思，并且想在历史数据中看看它的表现的话，
+PyAlgoTrade应该能够给你一些帮助。</p>
+<p>感谢要放在最开始——感谢豪尔赫帮助审查初步设计和文档。</p>
+<p><strong>本教程是在UNIX下开发的，但是把它调整为windows环境应该是比较简单的。</strong>
+<strong>因为我就是在windows下翻译的。</strong></p>
+<p>PyAlgoTrade有6大主要组件:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Strategies策略</li>
+<li>Feeds数据源</li>
+<li>Brokers经纪商</li>
+<li>DataSeries数据序列</li>
+<li>Technicals指标计算</li>
+<li>Optimizer优化</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>Strategies</dt>
+<dd>这是你定义的实现交易逻辑的类：何时买、何时卖，等等。</dd>
+<dt>Feeds</dt>
+<dd><p class="first">These are data providing abstractions. 例如，你可以使用CSV数据源从一个格式化后的csv(以逗号分割)文件中加载数据推送给策略。</p>
+<p class="last">数据源不仅限于bars。例如，可以利用Twitter数据源将Twitter的事件信息转化为交易决策（译者注：事件驱动）。</p>
+</dd>
+<dt>Brokers</dt>
+<dd>经纪商模块负责执行订单。</dd>
+<dt>DataSeries</dt>
+<dd>DataSeries 是用于管理时间序列的抽象类</dd>
+<dt>Technicals</dt>
+<dd>这是你用来对DataSeries进行计算的一组过滤（指标）器。
+例如简单移动平均线（SMA）,相对强弱指标(RSI)等. 这些过滤(指标)器被建模为DataSeries 的装饰器。</dd>
+<dt>Optimizer</dt>
+<dd>这是能让你在不同电脑之间、或多进程、或二者结合以加快回测效率的一组类。</dd>
+</dl>
+<p>说到这里，我们测试策略时需要一些数据，让我们使用以下命令获取甲骨文(Oracle)2000年的数据:</p>
+<div class="highlight-python"><div class="highlight"><pre>python -c &quot;from pyalgotrade.tools import yahoofinance; yahoofinance.download_daily_bars(&#39;orcl&#39;, 2000, &#39;orcl-2000.csv&#39;)&quot;
+</pre></div>
+</div>
+<p><em>pyalgotrade.tools.yahoofinance</em> 从雅虎金融(Yahoo! Finance)上打包下载格式化后的CSV数据。
+文件orcl-2000.csv的格式和内容如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>Date,Open,High,Low,Close,Volume,Adj Close
+2000-12-29,30.87,31.31,28.69,29.06,31655500,28.35
+2000-12-28,30.56,31.12,30.37,31.06,25055600,30.30
+2000-12-27,30.37,31.06,29.37,30.69,26441700,29.94
+.
+.
+2000-01-04,115.50,118.62,105.00,107.69,116850000,26.26
+2000-01-03,124.62,125.19,111.62,118.12,98122000,28.81
+</pre></div>
+</div>
+<p>让我们从一个简单的策略开始，即在运行过程中只打印收盘价:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+
+
+<span class="k">class</span> <span class="nc">MyStrategy</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">getClose</span><span class="p">())</span>
+
+<span class="c"># Load the yahoo feed from the CSV file</span>
+<span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+<span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="s">&quot;orcl-2000.csv&quot;</span><span class="p">)</span>
+
+<span class="c"># Evaluate the strategy with the feed&#39;s bars.</span>
+<span class="n">myStrategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="s">&quot;orcl&quot;</span><span class="p">)</span>
+<span class="n">myStrategy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>这段代码主要做了3件事情:(???)</dt>
+<dd><ol class="first last arabic simple">
+<li>声明了一个新的策略，这个策略中只定义了一个方法——<em>onBars</em>,这个方法会在推送的每一个bar执行(???)。</li>
+<li>从一个CSV文件载入数据源</li>
+<li>在数据源推送的每根bar上执行策略。</li>
+</ol>
+</dd>
+</dl>
+<p>如果你运行了这个脚本，你应该在命令中看到收盘价：</p>
+<div class="highlight-python"><div class="highlight"><pre>2000-01-03 00:00:00 strategy [INFO] 118.12
+2000-01-04 00:00:00 strategy [INFO] 107.69
+2000-01-05 00:00:00 strategy [INFO] 102.0
+.
+.
+.
+2000-12-27 00:00:00 strategy [INFO] 30.69
+2000-12-28 00:00:00 strategy [INFO] 31.06
+2000-12-29 00:00:00 strategy [INFO] 29.06
+</pre></div>
+</div>
+<p>下一步我们实现一个打印SMA价格的策略，用来演示technicals是如何被使用的：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">ma</span>
+
+
+<span class="k">class</span> <span class="nc">MyStrategy</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+        <span class="c"># We want a 15 period SMA over the closing prices.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">feed</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getCloseDataSeries</span><span class="p">(),</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">getClose</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c"># Load the yahoo feed from the CSV file</span>
+<span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+<span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="s">&quot;orcl-2000.csv&quot;</span><span class="p">)</span>
+
+<span class="c"># Evaluate the strategy with the feed&#39;s bars.</span>
+<span class="n">myStrategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="s">&quot;orcl&quot;</span><span class="p">)</span>
+<span class="n">myStrategy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这跟之前的例子很相似，除了：</p>
+<blockquote>
+<div><p>1、我们在收盘价基础上初始化了一个SMA过滤器（指标）。</p>
+<p>2、我们将SMA的值随着收盘价一起打印出来。</p>
+</div></blockquote>
+<p>运行该脚本后将会看到逐行对应的收盘价和SMA值，但是实际情况是前14行的SMA值是None。</p>
+<p>这是因为我们至少需要15个值才能把SMA计算出来：</p>
+<div class="highlight-python"><div class="highlight"><pre>2000-01-03 00:00:00 strategy [INFO] 118.12 None
+2000-01-04 00:00:00 strategy [INFO] 107.69 None
+2000-01-05 00:00:00 strategy [INFO] 102.0 None
+2000-01-06 00:00:00 strategy [INFO] 96.0 None
+2000-01-07 00:00:00 strategy [INFO] 103.37 None
+2000-01-10 00:00:00 strategy [INFO] 115.75 None
+2000-01-11 00:00:00 strategy [INFO] 112.37 None
+2000-01-12 00:00:00 strategy [INFO] 105.62 None
+2000-01-13 00:00:00 strategy [INFO] 105.06 None
+2000-01-14 00:00:00 strategy [INFO] 106.81 None
+2000-01-18 00:00:00 strategy [INFO] 111.25 None
+2000-01-19 00:00:00 strategy [INFO] 57.13 None
+2000-01-20 00:00:00 strategy [INFO] 59.25 None
+2000-01-21 00:00:00 strategy [INFO] 59.69 None
+2000-01-24 00:00:00 strategy [INFO] 54.19 94.2866666667
+2000-01-25 00:00:00 strategy [INFO] 56.44 90.1746666667
+.
+.
+.
+2000-12-27 00:00:00 strategy [INFO] 30.69 29.9866666667
+2000-12-28 00:00:00 strategy [INFO] 31.06 30.0446666667
+2000-12-29 00:00:00 strategy [INFO] 29.06 30.0946666667
+</pre></div>
+</div>
+<p>若给定的时间不足以计算，则所有的technicals将返回None。</p>
+<p>一件重要的事情是technicals可以进行组合，因为他们作为DataSeries是模块化的。</p>
+<p>比如，计算收盘价的RSI再计算RSI的SMA就很简单：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">ma</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">rsi</span>
+
+
+<span class="k">class</span> <span class="nc">MyStrategy</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span> <span class="o">=</span> <span class="n">rsi</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="n">feed</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getCloseDataSeries</span><span class="p">(),</span> <span class="mi">14</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">getClose</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c"># Load the yahoo feed from the CSV file</span>
+<span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+<span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="s">&quot;orcl-2000.csv&quot;</span><span class="p">)</span>
+
+<span class="c"># Evaluate the strategy with the feed&#39;s bars.</span>
+<span class="n">myStrategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="s">&quot;orcl&quot;</span><span class="p">)</span>
+<span class="n">myStrategy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>运行该脚本，你应该看到在屏幕上有一堆值：</p>
+<blockquote>
+<div><ul class="simple">
+<li>前14个RSI值是None。因为我们至少需要15个值来计算RSI。</li>
+<li>前28个SMA值是None。前14个RSI值是None，SMA过滤器（指标）接收的数据从第15个开始才不是None。我们计算SMA(15)至少需要15个非None值。</li>
+</ul>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>2000-01-03 00:00:00 strategy [INFO] 118.12 None None
+2000-01-04 00:00:00 strategy [INFO] 107.69 None None
+2000-01-05 00:00:00 strategy [INFO] 102.0 None None
+2000-01-06 00:00:00 strategy [INFO] 96.0 None None
+2000-01-07 00:00:00 strategy [INFO] 103.37 None None
+2000-01-10 00:00:00 strategy [INFO] 115.75 None None
+2000-01-11 00:00:00 strategy [INFO] 112.37 None None
+2000-01-12 00:00:00 strategy [INFO] 105.62 None None
+2000-01-13 00:00:00 strategy [INFO] 105.06 None None
+2000-01-14 00:00:00 strategy [INFO] 106.81 None None
+2000-01-18 00:00:00 strategy [INFO] 111.25 None None
+2000-01-19 00:00:00 strategy [INFO] 57.13 None None
+2000-01-20 00:00:00 strategy [INFO] 59.25 None None
+2000-01-21 00:00:00 strategy [INFO] 59.69 None None
+2000-01-24 00:00:00 strategy [INFO] 54.19 23.5673530141 None
+2000-01-25 00:00:00 strategy [INFO] 56.44 25.0687519877 None
+2000-01-26 00:00:00 strategy [INFO] 55.06 24.7476577095 None
+2000-01-27 00:00:00 strategy [INFO] 51.81 23.9690136517 None
+2000-01-28 00:00:00 strategy [INFO] 47.38 22.9108539956 None
+2000-01-31 00:00:00 strategy [INFO] 49.95 24.980004823 None
+2000-02-01 00:00:00 strategy [INFO] 54.0 28.2484181864 None
+2000-02-02 00:00:00 strategy [INFO] 54.31 28.505177315 None
+2000-02-03 00:00:00 strategy [INFO] 56.69 30.5596770599 None
+2000-02-04 00:00:00 strategy [INFO] 57.81 31.5564353751 None
+2000-02-07 00:00:00 strategy [INFO] 59.94 33.5111056589 None
+2000-02-08 00:00:00 strategy [INFO] 59.56 33.3282358994 None
+2000-02-09 00:00:00 strategy [INFO] 59.94 33.7177605915 None
+2000-02-10 00:00:00 strategy [INFO] 62.31 36.2205441255 None
+2000-02-11 00:00:00 strategy [INFO] 59.69 34.6623493641 29.0368892505
+2000-02-14 00:00:00 strategy [INFO] 62.19 37.4284445543 29.9609620198
+.
+.
+.
+2000-12-27 00:00:00 strategy [INFO] 30.69 51.3196802735 49.8506368511
+2000-12-28 00:00:00 strategy [INFO] 31.06 52.1646203455 49.997518354
+2000-12-29 00:00:00 strategy [INFO] 29.06 47.3776678335 50.0790646925
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>交易<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>现在让我们用一个简单的策略模拟实际的交易，思路很简单：</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果复权价格在SMA(15)之上时，我们买入一个多单(我们发出一张买订单).</li>
+<li>如果我们持有一张多单，当复权价跌破SMA(15)时，我们平多单(我们发出一张卖单).</li>
+</ul>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">ma</span>
+
+
+<span class="k">class</span> <span class="nc">MyStrategy</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+        <span class="c"># We&#39;ll use adjusted close values instead of regular close values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setUseAdjustedValues</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">feed</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPriceDataSeries</span><span class="p">(),</span> <span class="n">smaPeriod</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">onEnterOk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="n">execInfo</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">getEntryOrder</span><span class="p">()</span><span class="o">.</span><span class="n">getExecutionInfo</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;BUY at $</span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">execInfo</span><span class="o">.</span><span class="n">getPrice</span><span class="p">()))</span>
+
+    <span class="k">def</span> <span class="nf">onEnterCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">onExitOk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="n">execInfo</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">getExitOrder</span><span class="p">()</span><span class="o">.</span><span class="n">getExecutionInfo</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;SELL at $</span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">execInfo</span><span class="o">.</span><span class="n">getPrice</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">onExitCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="c"># If the exit was canceled, re-submit it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="c"># Wait for enough bars to be available to calculate a SMA.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span>
+        <span class="c"># If a position was not opened, check if we should enter a long position.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bar</span><span class="o">.</span><span class="n">getPrice</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="c"># Enter a buy market order for 10 shares. The order is good till canceled.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterLong</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="c"># Check if we have to exit the position.</span>
+        <span class="k">elif</span> <span class="n">bar</span><span class="o">.</span><span class="n">getPrice</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitActive</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">run_strategy</span><span class="p">(</span><span class="n">smaPeriod</span><span class="p">):</span>
+    <span class="c"># Load the yahoo feed from the CSV file</span>
+    <span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="s">&quot;orcl-2000.csv&quot;</span><span class="p">)</span>
+
+    <span class="c"># Evaluate the strategy with the feed.</span>
+    <span class="n">myStrategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">)</span>
+    <span class="n">myStrategy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">((</span><span class="s">&quot;Final portfolio value: $</span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">myStrategy</span><span class="o">.</span><span class="n">getBroker</span><span class="p">()</span><span class="o">.</span><span class="n">getEquity</span><span class="p">()))</span>
+
+<span class="n">run_strategy</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行该脚本，你将看到跟下面类似的东西:</p>
+<div class="highlight-python"><div class="highlight"><pre>2000-01-26 00:00:00 strategy [INFO] BUY at $27.26
+2000-01-28 00:00:00 strategy [INFO] SELL at $24.74
+2000-02-03 00:00:00 strategy [INFO] BUY at $26.60
+2000-02-22 00:00:00 strategy [INFO] SELL at $28.40
+2000-02-23 00:00:00 strategy [INFO] BUY at $28.91
+2000-03-31 00:00:00 strategy [INFO] SELL at $38.51
+2000-04-07 00:00:00 strategy [INFO] BUY at $40.19
+2000-04-12 00:00:00 strategy [INFO] SELL at $37.44
+2000-04-19 00:00:00 strategy [INFO] BUY at $37.76
+2000-04-20 00:00:00 strategy [INFO] SELL at $35.45
+2000-04-28 00:00:00 strategy [INFO] BUY at $37.70
+2000-05-05 00:00:00 strategy [INFO] SELL at $35.54
+2000-05-08 00:00:00 strategy [INFO] BUY at $36.17
+2000-05-09 00:00:00 strategy [INFO] SELL at $35.39
+2000-05-16 00:00:00 strategy [INFO] BUY at $37.28
+2000-05-19 00:00:00 strategy [INFO] SELL at $34.58
+2000-05-31 00:00:00 strategy [INFO] BUY at $35.18
+2000-06-23 00:00:00 strategy [INFO] SELL at $38.81
+2000-06-27 00:00:00 strategy [INFO] BUY at $39.56
+2000-06-28 00:00:00 strategy [INFO] SELL at $39.42
+2000-06-29 00:00:00 strategy [INFO] BUY at $39.41
+2000-06-30 00:00:00 strategy [INFO] SELL at $38.60
+2000-07-03 00:00:00 strategy [INFO] BUY at $38.96
+2000-07-05 00:00:00 strategy [INFO] SELL at $36.89
+2000-07-21 00:00:00 strategy [INFO] BUY at $37.19
+2000-07-24 00:00:00 strategy [INFO] SELL at $37.04
+2000-07-26 00:00:00 strategy [INFO] BUY at $35.93
+2000-07-28 00:00:00 strategy [INFO] SELL at $36.08
+2000-08-01 00:00:00 strategy [INFO] BUY at $36.11
+2000-08-02 00:00:00 strategy [INFO] SELL at $35.06
+2000-08-04 00:00:00 strategy [INFO] BUY at $37.61
+2000-09-11 00:00:00 strategy [INFO] SELL at $41.34
+2000-09-29 00:00:00 strategy [INFO] BUY at $39.07
+2000-10-02 00:00:00 strategy [INFO] SELL at $38.30
+2000-10-20 00:00:00 strategy [INFO] BUY at $34.71
+2000-10-31 00:00:00 strategy [INFO] SELL at $31.34
+2000-11-20 00:00:00 strategy [INFO] BUY at $23.35
+2000-11-21 00:00:00 strategy [INFO] SELL at $23.83
+2000-12-01 00:00:00 strategy [INFO] BUY at $25.33
+2000-12-21 00:00:00 strategy [INFO] SELL at $26.72
+2000-12-22 00:00:00 strategy [INFO] BUY at $29.17
+Final portfolio value: $979.44
+</pre></div>
+</div>
+<p>如果我们用30替代15来作为SMA的参数会怎样？绩效会变好还是变坏？
+我们很确定可以通过以下方法来验证：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="n">run_strategy</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>我们会发现，使用SMA(20)后能得到更好的回报:</p>
+<div class="highlight-python"><div class="highlight"><pre>Final portfolio value: $1075.38
+</pre></div>
+</div>
+<p>我们只是尝试了一组有限的参数组，看起来没有什么问题。如果我们需要测试一个有多个参数的策略怎么办？</p>
+<p>使用串行计算就不会让策略变得更复杂。</p>
+</div>
+<div class="section" id="id3">
+<h2>优化<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>了解优化组件后，优化会变得非常简单：</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>有一个服务负责:</dt>
+<dd><ul class="first last simple">
+<li>提供策略运行所需的bars。</li>
+<li>提供策略运行所需的参数。</li>
+<li>记录来自每个工作过程的交易记录结果。</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>并且有多个工作过程负责:</dt>
+<dd><ul class="first last simple">
+<li>在由服务提供的参数、K线基础上运行策略。</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>我们使用一个名为RSI2的策略来说明上述架构(<a class="reference external" href="http://stockcharts.com/school/doku.php?id=chart_school:trading_strategies:rsi2">http://stockcharts.com/school/doku.php?id=chart_school:trading_strategies:rsi2</a>),
+它需要以下参数:</p>
+<blockquote>
+<div><ul class="simple">
+<li>entrySMA：一个SMA趋势识别的长度。参数范围[150 ~ 250]。</li>
+<li>exitSMA：一个较短的SMA出场点长度。参数范围[5~10]。</li>
+<li>rsiPeriod：多空入场点。参数范围[2 ~ 10]。</li>
+<li>overSoldThreshold：RSI多单平仓点。参数范围[5 ~ 25]。</li>
+<li>overBoughtThreshold：RSI空单平仓点。参数范围[75 ~ 95]。</li>
+</ul>
+</div></blockquote>
+<p>如果我没算错的话——你的意思是数学是体育老师教的？？————这将有4409559个参数组合。</p>
+<p>我这里测试其中一个参数组的时间大约0.16秒，估计需要8.5天才能要运行完整个参数组合然后找到最优参数。时间太长了。如果我能有10台8核的机器同时进行优化，那么时间将缩短到2.5小时。</p>
+<p>长话短说, <strong>我们需要并行计算</strong>.</p>
+<p>我们先下载道琼斯工业指数3年的日线数据:</p>
+<div class="highlight-python"><div class="highlight"><pre>python -c &quot;from pyalgotrade.tools import yahoofinance; yahoofinance.download_daily_bars(&#39;dia&#39;, 2009, &#39;dia-2009.csv&#39;)&quot;
+python -c &quot;from pyalgotrade.tools import yahoofinance; yahoofinance.download_daily_bars(&#39;dia&#39;, 2010, &#39;dia-2010.csv&#39;)&quot;
+python -c &quot;from pyalgotrade.tools import yahoofinance; yahoofinance.download_daily_bars(&#39;dia&#39;, 2011, &#39;dia-2011.csv&#39;)&quot;
+</pre></div>
+</div>
+<p>保存以下代码到rsi2.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">ma</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">rsi</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">cross</span>
+
+
+<span class="k">class</span> <span class="nc">RSI2</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">entrySMA</span><span class="p">,</span> <span class="n">exitSMA</span><span class="p">,</span> <span class="n">rsiPeriod</span><span class="p">,</span> <span class="n">overBoughtThreshold</span><span class="p">,</span> <span class="n">overSoldThreshold</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+        <span class="c"># We&#39;ll use adjusted close values, if available, instead of regular close values.</span>
+        <span class="k">if</span> <span class="n">feed</span><span class="o">.</span><span class="n">barsHaveAdjClose</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setUseAdjustedValues</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__priceDS</span> <span class="o">=</span> <span class="n">feed</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPriceDataSeries</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__entrySMA</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__priceDS</span><span class="p">,</span> <span class="n">entrySMA</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__exitSMA</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__priceDS</span><span class="p">,</span> <span class="n">exitSMA</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span> <span class="o">=</span> <span class="n">rsi</span><span class="o">.</span><span class="n">RSI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__priceDS</span><span class="p">,</span> <span class="n">rsiPeriod</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__overBoughtThreshold</span> <span class="o">=</span> <span class="n">overBoughtThreshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__overSoldThreshold</span> <span class="o">=</span> <span class="n">overSoldThreshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">getEntrySMA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__entrySMA</span>
+
+    <span class="k">def</span> <span class="nf">getExitSMA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exitSMA</span>
+
+    <span class="k">def</span> <span class="nf">getRSI</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span>
+
+    <span class="k">def</span> <span class="nf">onEnterCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">onExitOk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">onExitCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="c"># If the exit was canceled, re-submit it.</span>
+        <span class="n">position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="c"># Wait for enough bars to be available to calculate SMA and RSI.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exitSMA</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__entrySMA</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">bar</span> <span class="o">=</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exitLongSignal</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exitShortSignal</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterLongSignal</span><span class="p">(</span><span class="n">bar</span><span class="p">):</span>
+                <span class="n">shares</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getBroker</span><span class="p">()</span><span class="o">.</span><span class="n">getCash</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.9</span> <span class="o">/</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPrice</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterLong</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterShortSignal</span><span class="p">(</span><span class="n">bar</span><span class="p">):</span>
+                <span class="n">shares</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getBroker</span><span class="p">()</span><span class="o">.</span><span class="n">getCash</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.9</span> <span class="o">/</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPrice</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterShort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">enterLongSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bar</span><span class="o">.</span><span class="n">getPrice</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__entrySMA</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__overSoldThreshold</span>
+
+    <span class="k">def</span> <span class="nf">exitLongSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cross</span><span class="o">.</span><span class="n">cross_above</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__priceDS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exitSMA</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__longPos</span><span class="o">.</span><span class="n">exitActive</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">enterShortSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bar</span><span class="o">.</span><span class="n">getPrice</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__entrySMA</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rsi</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__overBoughtThreshold</span>
+
+    <span class="k">def</span> <span class="nf">exitShortSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cross</span><span class="o">.</span><span class="n">cross_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__priceDS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exitSMA</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shortPos</span><span class="o">.</span><span class="n">exitActive</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这是服务器脚本:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.optimizer</span> <span class="kn">import</span> <span class="n">server</span>
+
+
+<span class="k">def</span> <span class="nf">parameters_generator</span><span class="p">():</span>
+    <span class="n">instrument</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;dia&quot;</span><span class="p">]</span>
+    <span class="n">entrySMA</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
+    <span class="n">exitSMA</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="n">rsiPeriod</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+    <span class="n">overBoughtThreshold</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">96</span><span class="p">))</span>
+    <span class="n">overSoldThreshold</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">26</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">entrySMA</span><span class="p">,</span> <span class="n">exitSMA</span><span class="p">,</span> <span class="n">rsiPeriod</span><span class="p">,</span> <span class="n">overBoughtThreshold</span><span class="p">,</span> <span class="n">overSoldThreshold</span><span class="p">)</span>
+
+<span class="c"># The if __name__ == &#39;__main__&#39; part is necessary if running on Windows.</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c"># Load the feed from the CSV files.</span>
+    <span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">,</span> <span class="s">&quot;dia-2009.csv&quot;</span><span class="p">)</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">,</span> <span class="s">&quot;dia-2010.csv&quot;</span><span class="p">)</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">,</span> <span class="s">&quot;dia-2011.csv&quot;</span><span class="p">)</span>
+
+    <span class="c"># Run the server.</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="n">parameters_generator</span><span class="p">(),</span> <span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>服务器脚本做了3件事:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>声明一个生成器函数，这个函数可以根据参数范围为策略生成参数组合。</li>
+<li>从我们下载的CSV文件载入数据源。</li>
+<li>运行服务端并在端口5000上等待连接。</li>
+</ol>
+</div></blockquote>
+<p>This is the worker script that uses the <strong>pyalgotrade.optimizer.worker</strong> module to run the strategy in parallel with
+the data supplied by the server:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade.optimizer</span> <span class="kn">import</span> <span class="n">worker</span>
+<span class="kn">import</span> <span class="nn">rsi2</span>
+
+<span class="c"># The if __name__ == &#39;__main__&#39; part is necessary if running on Windows.</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">worker</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">rsi2</span><span class="o">.</span><span class="n">RSI2</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">workerName</span><span class="o">=</span><span class="s">&quot;localworker&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>当您运行服务器和客户端时，您会看到在服务器控制台上看到的类似下面的内容：</p>
+<div class="highlight-python"><div class="highlight"><pre>2014-05-03 15:04:01,083 server [INFO] Loading bars
+2014-05-03 15:04:01,348 server [INFO] Waiting for workers
+2014-05-03 15:04:58,277 server [INFO] Partial result 1242173.28754 with parameters: (&#39;dia&#39;, 150, 5, 2, 91, 19) from localworker
+2014-05-03 15:04:58,566 server [INFO] Partial result 1203266.33502 with parameters: (&#39;dia&#39;, 150, 5, 2, 81, 19) from localworker
+2014-05-03 15:05:50,965 server [INFO] Partial result 1220763.1579 with parameters: (&#39;dia&#39;, 150, 5, 3, 83, 24) from localworker
+2014-05-03 15:05:51,325 server [INFO] Partial result 1221627.50793 with parameters: (&#39;dia&#39;, 150, 5, 3, 80, 24) from localworker
+.
+.
+</pre></div>
+</div>
+<p>在客户机控制台可以看到下面的内容:</p>
+<div class="highlight-python"><div class="highlight"><pre>2014-05-03 15:02:25,360 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 84, 15)
+2014-05-03 15:02:25,377 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 94, 5)
+2014-05-03 15:02:25,661 localworker [INFO] Result 1090481.06342
+2014-05-03 15:02:25,661 localworker [INFO] Result 1031470.23717
+2014-05-03 15:02:25,662 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 93, 25)
+2014-05-03 15:02:25,665 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 84, 14)
+2014-05-03 15:02:25,995 localworker [INFO] Result 1135558.55667
+2014-05-03 15:02:25,996 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 93, 24)
+2014-05-03 15:02:26,006 localworker [INFO] Result 1083987.18174
+2014-05-03 15:02:26,007 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 84, 13)
+2014-05-03 15:02:26,256 localworker [INFO] Result 1093736.17175
+2014-05-03 15:02:26,257 localworker [INFO] Running strategy with parameters (&#39;dia&#39;, 150, 5, 2, 84, 12)
+2014-05-03 15:02:26,280 localworker [INFO] Result 1135558.55667
+.
+.
+</pre></div>
+</div>
+<p>注意！！<strong>你只能运行一个服务器和一个或者多个客户机。</strong>。译者补充：这里说的是同一个优化项目下只能运行一个服务器。</p>
+<p>如果你只想在自己的电脑上对策略并行计算，你可以利用 <strong>pyalgotrade.optimizer.local</strong> 模块来实现：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.optimizer</span> <span class="kn">import</span> <span class="n">local</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+<span class="kn">import</span> <span class="nn">rsi2</span>
+
+
+<span class="k">def</span> <span class="nf">parameters_generator</span><span class="p">():</span>
+    <span class="n">instrument</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;dia&quot;</span><span class="p">]</span>
+    <span class="n">entrySMA</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">251</span><span class="p">))</span>
+    <span class="n">exitSMA</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="n">rsiPeriod</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+    <span class="n">overBoughtThreshold</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">96</span><span class="p">))</span>
+    <span class="n">overSoldThreshold</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">26</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">entrySMA</span><span class="p">,</span> <span class="n">exitSMA</span><span class="p">,</span> <span class="n">rsiPeriod</span><span class="p">,</span> <span class="n">overBoughtThreshold</span><span class="p">,</span> <span class="n">overSoldThreshold</span><span class="p">)</span>
+
+
+<span class="c"># The if __name__ == &#39;__main__&#39; part is necessary if running on Windows.</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c"># Load the feed from the CSV files.</span>
+    <span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">,</span> <span class="s">&quot;dia-2009.csv&quot;</span><span class="p">)</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">,</span> <span class="s">&quot;dia-2010.csv&quot;</span><span class="p">)</span>
+    <span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">,</span> <span class="s">&quot;dia-2011.csv&quot;</span><span class="p">)</span>
+
+    <span class="n">local</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">rsi2</span><span class="o">.</span><span class="n">RSI2</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">parameters_generator</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>上述代码做了3件事:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>声明一个生成器函数，这个函数可以根据参数范围为策略生成参数组合。</li>
+<li>从我们下载的CSV文件载入数据源。</li>
+<li>通过 <strong>pyalgotrade.optimizer.local</strong> 模块运行策略并寻优。</li>
+</ol>
+</div></blockquote>
+<p>当你执行这段代码后，你可以看到类似下面的结果:</p>
+<div class="highlight-python"><div class="highlight"><pre>2014-05-03 15:08:06,587 server [INFO] Loading bars
+2014-05-03 15:08:06,910 server [INFO] Waiting for workers
+2014-05-03 15:08:58,347 server [INFO] Partial result 1242173.28754 with parameters: (&#39;dia&#39;, 150, 5, 2, 91, 19) from worker-95583
+2014-05-03 15:08:58,967 server [INFO] Partial result 1203266.33502 with parameters: (&#39;dia&#39;, 150, 5, 2, 81, 19) from worker-95584
+2014-05-03 15:09:52,097 server [INFO] Partial result 1220763.1579 with parameters: (&#39;dia&#39;, 150, 5, 3, 83, 24) from worker-95584
+2014-05-03 15:09:52,921 server [INFO] Partial result 1221627.50793 with parameters: (&#39;dia&#39;, 150, 5, 3, 80, 24) from worker-95583
+2014-05-03 15:10:40,826 server [INFO] Partial result 1142162.23912 with parameters: (&#39;dia&#39;, 150, 5, 4, 76, 17) from worker-95584
+2014-05-03 15:10:41,318 server [INFO] Partial result 1107487.03214 with parameters: (&#39;dia&#39;, 150, 5, 4, 83, 17) from worker-95583
+.
+.
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>在记录中，最优结果为 $2314.40 ,它的参数组是:</dt>
+<dd><ol class="first last arabic simple">
+<li>entrySMA: 154</li>
+<li>exitSMA: 5</li>
+<li>rsiPeriod: 2</li>
+<li>overBoughtThreshold: 91</li>
+<li>overSoldThreshold: 18</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="id4">
+<h2>绘图<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>PyAlgoTrade可以很容易的对策略运行进行绘图。</p>
+<p>保存为 sma_crossover.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">ma</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">cross</span>
+
+
+<span class="k">class</span> <span class="nc">SMACrossOver</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c"># We&#39;ll use adjusted close values instead of regular close values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setUseAdjustedValues</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__prices</span> <span class="o">=</span> <span class="n">feed</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPriceDataSeries</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prices</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getSMA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span>
+
+    <span class="k">def</span> <span class="nf">onEnterCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">onExitOk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">onExitCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="c"># If the exit was canceled, re-submit it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="c"># If a position was not opened, check if we should enter a long position.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cross</span><span class="o">.</span><span class="n">cross_above</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">shares</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getBroker</span><span class="p">()</span><span class="o">.</span><span class="n">getCash</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.9</span> <span class="o">/</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPrice</span><span class="p">())</span>
+                <span class="c"># Enter a buy market order. The order is good till canceled.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterLong</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="c"># Check if we have to exit the position.</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitActive</span><span class="p">()</span> <span class="ow">and</span> <span class="n">cross</span><span class="o">.</span><span class="n">cross_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>保存这段代码到另外一个文件:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">plotter</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.barfeed</span> <span class="kn">import</span> <span class="n">yahoofeed</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.stratanalyzer</span> <span class="kn">import</span> <span class="n">returns</span>
+<span class="kn">import</span> <span class="nn">sma_crossover</span>
+
+<span class="c"># Load the yahoo feed from the CSV file</span>
+<span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">()</span>
+<span class="n">feed</span><span class="o">.</span><span class="n">addBarsFromCSV</span><span class="p">(</span><span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="s">&quot;orcl-2000.csv&quot;</span><span class="p">)</span>
+
+<span class="c"># Evaluate the strategy with the feed&#39;s bars.</span>
+<span class="n">myStrategy</span> <span class="o">=</span> <span class="n">sma_crossover</span><span class="o">.</span><span class="n">SMACrossOver</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="s">&quot;orcl&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c"># Attach a returns analyzers to the strategy.</span>
+<span class="n">returnsAnalyzer</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">Returns</span><span class="p">()</span>
+<span class="n">myStrategy</span><span class="o">.</span><span class="n">attachAnalyzer</span><span class="p">(</span><span class="n">returnsAnalyzer</span><span class="p">)</span>
+
+<span class="c"># Attach the plotter to the strategy.</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">StrategyPlotter</span><span class="p">(</span><span class="n">myStrategy</span><span class="p">)</span>
+<span class="c"># Include the SMA in the instrument&#39;s subplot to get it displayed along with the closing prices.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">getInstrumentSubplot</span><span class="p">(</span><span class="s">&quot;orcl&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">addDataSeries</span><span class="p">(</span><span class="s">&quot;SMA&quot;</span><span class="p">,</span> <span class="n">myStrategy</span><span class="o">.</span><span class="n">getSMA</span><span class="p">())</span>
+<span class="c"># Plot the simple returns on each bar.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">getOrCreateSubplot</span><span class="p">(</span><span class="s">&quot;returns&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">addDataSeries</span><span class="p">(</span><span class="s">&quot;Simple returns&quot;</span><span class="p">,</span> <span class="n">returnsAnalyzer</span><span class="o">.</span><span class="n">getReturns</span><span class="p">())</span>
+
+<span class="c"># Run the strategy.</span>
+<span class="n">myStrategy</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">myStrategy</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Final portfolio value: $</span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">myStrategy</span><span class="o">.</span><span class="n">getResult</span><span class="p">())</span>
+
+<span class="c"># Plot the strategy.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>上述代码做了3件事:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>从一个CSV文件中加载数据源。</li>
+<li>通过数据源提供的bar逐根运行策略；提供一个策略绘图程序。</li>
+<li>绘制策略图形。</li>
+</ol>
+</div></blockquote>
+<p>图形如下:</p>
+<img alt="_images/tutorial-5.png" src="_images/tutorial-5.png" />
+<p>我希望你能喜欢这份简明教程. 同时提醒你下载地址在这里: <a class="reference external" href="http://gbeced.github.io/pyalgotrade/downloads/index.html">http://gbeced.github.io/pyalgotrade/downloads/index.html</a></p>
+<p>开始编写你自己的策略吧！</p>
+<p>你可以在 <a class="reference internal" href="samples.html#samples-label"><span>策略例子</span></a> 找到更多的例子.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="code.html" title="代码的文档说明"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="简介"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>

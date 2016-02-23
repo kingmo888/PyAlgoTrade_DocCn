@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bar – 品种的价格 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="index.html" />
+    <link rel="up" title="代码的文档说明" href="code.html" />
+    <link rel="next" title="dataseries – 数据序列基类" href="dataseries.html" />
+    <link rel="prev" title="代码的文档说明" href="code.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="dataseries.html" title="dataseries – 数据序列基类"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="code.html" title="代码的文档说明"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" accesskey="U">代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="code.html"
+                        title="上一章">代码的文档说明</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="dataseries.html"
+                        title="下一章">dataseries &#8211; 数据序列基类</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bar.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyalgotrade.bar">
+<span id="bar"></span><h1>bar &#8211; 品种的价格<a class="headerlink" href="#module-pyalgotrade.bar" title="永久链接至标题">¶</a></h1>
+<dl class="class">
+<dt id="pyalgotrade.bar.Frequency">
+<em class="property">class </em><code class="descclassname">pyalgotrade.bar.</code><code class="descname">Frequency</code><a class="headerlink" href="#pyalgotrade.bar.Frequency" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>frequencies类的K线类型枚举. 有效值如下:</p>
+<ul class="simple">
+<li><strong>Frequency.TRADE</strong>: The bar represents a single trade.</li>
+<li><strong>Frequency.SECOND</strong>: The bar summarizes the trading activity during 1 second.</li>
+<li><strong>Frequency.MINUTE</strong>: The bar summarizes the trading activity during 1 minute.</li>
+<li><strong>Frequency.HOUR</strong>: The bar summarizes the trading activity during 1 hour.</li>
+<li><strong>Frequency.DAY</strong>: The bar summarizes the trading activity during 1 day.</li>
+<li><strong>Frequency.WEEK</strong>: The bar summarizes the trading activity during 1 week.</li>
+<li><strong>Frequency.MONTH</strong>: The bar summarizes the trading activity during 1 month.</li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.bar.Bar">
+<em class="property">class </em><code class="descclassname">pyalgotrade.bar.</code><code class="descname">Bar</code><a class="headerlink" href="#pyalgotrade.bar.Bar" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A Bar is a summary of the trading activity for a security in a given period.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">这是一个基类，不应该直接被调用.</p>
+</div>
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getDateTime">
+<code class="descname">getDateTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getDateTime" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getOpen">
+<code class="descname">getOpen</code><span class="sig-paren">(</span><em>adjusted=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getOpen" title="永久链接至目标">¶</a></dt>
+<dd><p>返回开盘价.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getHigh">
+<code class="descname">getHigh</code><span class="sig-paren">(</span><em>adjusted=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getHigh" title="永久链接至目标">¶</a></dt>
+<dd><p>返回最高价.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getLow">
+<code class="descname">getLow</code><span class="sig-paren">(</span><em>adjusted=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getLow" title="永久链接至目标">¶</a></dt>
+<dd><p>返回最低价.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getClose">
+<code class="descname">getClose</code><span class="sig-paren">(</span><em>adjusted=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getClose" title="永久链接至目标">¶</a></dt>
+<dd><p>返回收盘价.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getVolume">
+<code class="descname">getVolume</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getVolume" title="永久链接至目标">¶</a></dt>
+<dd><p>返回成交量.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getAdjClose">
+<code class="descname">getAdjClose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getAdjClose" title="永久链接至目标">¶</a></dt>
+<dd><p>返回复权价.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getFrequency">
+<code class="descname">getFrequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getFrequency" title="永久链接至目标">¶</a></dt>
+<dd><p>返回bar的周期.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getTypicalPrice">
+<code class="descname">getTypicalPrice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getTypicalPrice" title="永久链接至目标">¶</a></dt>
+<dd><p>返回高低收均价.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bar.getPrice">
+<code class="descname">getPrice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bar.getPrice" title="永久链接至目标">¶</a></dt>
+<dd><p>返回收盘价或复权价(取决于是否启用复权).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.bar.Bars">
+<em class="property">class </em><code class="descclassname">pyalgotrade.bar.</code><code class="descname">Bars</code><span class="sig-paren">(</span><em>barDict</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bars" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A group of <a class="reference internal" href="#pyalgotrade.bar.Bar" title="pyalgotrade.bar.Bar"><code class="xref py py-class docutils literal"><span class="pre">Bar</span></code></a> objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>barDict</strong> (<em>map.</em>) &#8211; A map of instrument to <a class="reference internal" href="#pyalgotrade.bar.Bar" title="pyalgotrade.bar.Bar"><code class="xref py py-class docutils literal"><span class="pre">Bar</span></code></a> objects.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">所有bar必须具有相同的datetime</p>
+</div>
+<dl class="method">
+<dt id="pyalgotrade.bar.Bars.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>instrument</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bars.__getitem__" title="永久链接至目标">¶</a></dt>
+<dd><p>返回给定品种的 <a class="reference internal" href="#pyalgotrade.bar.Bar" title="pyalgotrade.bar.Bar"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.bar.Bar</span></code></a> ，如果品种未找到则引发异常。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bars.__contains__">
+<code class="descname">__contains__</code><span class="sig-paren">(</span><em>instrument</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bars.__contains__" title="永久链接至目标">¶</a></dt>
+<dd><p>布尔值。如果给定品种的 <a class="reference internal" href="#pyalgotrade.bar.Bar" title="pyalgotrade.bar.Bar"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.bar.Bar</span></code></a> 可用则返回真，否则假。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bars.getInstruments">
+<code class="descname">getInstruments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bars.getInstruments" title="永久链接至目标">¶</a></dt>
+<dd><p>返回品种的代码。（多个）</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bars.getDateTime">
+<code class="descname">getDateTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bars.getDateTime" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns the <code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code> for this set of bars.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.bar.Bars.getBar">
+<code class="descname">getBar</code><span class="sig-paren">(</span><em>instrument</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.bar.Bars.getBar" title="永久链接至目标">¶</a></dt>
+<dd><p>返回给定品种的 <a class="reference internal" href="#pyalgotrade.bar.Bar" title="pyalgotrade.bar.Bar"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.bar.Bar</span></code></a> ，如果品种未找到则返回None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="dataseries.html" title="dataseries – 数据序列基类"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="code.html" title="代码的文档说明"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" >代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>

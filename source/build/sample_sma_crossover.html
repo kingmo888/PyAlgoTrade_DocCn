@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SMA 交叉 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="index.html" />
+    <link rel="up" title="策略例子" href="samples.html" />
+    <link rel="next" title="均线交叉择时" href="sample_market_timing.html" />
+    <link rel="prev" title="VWAP动量交易" href="sample_vwap_momentum.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="sample_market_timing.html" title="均线交叉择时"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="sample_vwap_momentum.html" title="VWAP动量交易"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="samples.html" accesskey="U">策略例子</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="sample_vwap_momentum.html"
+                        title="上一章">VWAP动量交易</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="sample_market_timing.html"
+                        title="下一章">均线交叉择时</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/sample_sma_crossover.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sma">
+<h1>SMA 交叉<a class="headerlink" href="#sma" title="永久链接至标题">¶</a></h1>
+<p>保存代码到sma_crossover.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">strategy</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">ma</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.technical</span> <span class="kn">import</span> <span class="n">cross</span>
+
+
+<span class="k">class</span> <span class="nc">SMACrossOver</span><span class="p">(</span><span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">):</span>
+        <span class="n">strategy</span><span class="o">.</span><span class="n">BacktestingStrategy</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c"># We&#39;ll use adjusted close values instead of regular close values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setUseAdjustedValues</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__prices</span> <span class="o">=</span> <span class="n">feed</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPriceDataSeries</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prices</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getSMA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span>
+
+    <span class="k">def</span> <span class="nf">onEnterCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">onExitOk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">onExitCanceled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="c"># If the exit was canceled, re-submit it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">onBars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bars</span><span class="p">):</span>
+        <span class="c"># If a position was not opened, check if we should enter a long position.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cross</span><span class="o">.</span><span class="n">cross_above</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">shares</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getBroker</span><span class="p">()</span><span class="o">.</span><span class="n">getCash</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.9</span> <span class="o">/</span> <span class="n">bars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">]</span><span class="o">.</span><span class="n">getPrice</span><span class="p">())</span>
+                <span class="c"># Enter a buy market order. The order is good till canceled.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enterLong</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__instrument</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="c"># Check if we have to exit the position.</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitActive</span><span class="p">()</span> <span class="ow">and</span> <span class="n">cross</span><span class="o">.</span><span class="n">cross_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sma</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__position</span><span class="o">.</span><span class="n">exitMarket</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>通过以下代码运行策略:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sma_crossover</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">plotter</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.tools</span> <span class="kn">import</span> <span class="n">yahoofinance</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade.stratanalyzer</span> <span class="kn">import</span> <span class="n">sharpe</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">plot</span><span class="p">):</span>
+    <span class="n">instrument</span> <span class="o">=</span> <span class="s">&quot;aapl&quot;</span>
+    <span class="n">smaPeriod</span> <span class="o">=</span> <span class="mi">163</span>
+
+    <span class="c"># Download the bars.</span>
+    <span class="n">feed</span> <span class="o">=</span> <span class="n">yahoofinance</span><span class="o">.</span><span class="n">build_feed</span><span class="p">([</span><span class="n">instrument</span><span class="p">],</span> <span class="mi">2011</span><span class="p">,</span> <span class="mi">2012</span><span class="p">,</span> <span class="s">&quot;.&quot;</span><span class="p">)</span>
+
+    <span class="n">strat</span> <span class="o">=</span> <span class="n">sma_crossover</span><span class="o">.</span><span class="n">SMACrossOver</span><span class="p">(</span><span class="n">feed</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">smaPeriod</span><span class="p">)</span>
+    <span class="n">sharpeRatioAnalyzer</span> <span class="o">=</span> <span class="n">sharpe</span><span class="o">.</span><span class="n">SharpeRatio</span><span class="p">()</span>
+    <span class="n">strat</span><span class="o">.</span><span class="n">attachAnalyzer</span><span class="p">(</span><span class="n">sharpeRatioAnalyzer</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">plt</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">StrategyPlotter</span><span class="p">(</span><span class="n">strat</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">getInstrumentSubplot</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span><span class="o">.</span><span class="n">addDataSeries</span><span class="p">(</span><span class="s">&quot;sma&quot;</span><span class="p">,</span> <span class="n">strat</span><span class="o">.</span><span class="n">getSMA</span><span class="p">())</span>
+
+    <span class="n">strat</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Sharpe ratio: </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">sharpeRatioAnalyzer</span><span class="o">.</span><span class="n">getSharpeRatio</span><span class="p">(</span><span class="mf">0.05</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>本例输出结果如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>2013-09-21 00:01:23,813 yahoofinance [INFO] Creating data directory
+2013-09-21 00:01:23,814 yahoofinance [INFO] Downloading aapl 2011 to data/aapl-2011-yahoofinance.csv
+2013-09-21 00:01:25,275 yahoofinance [INFO] Downloading aapl 2012 to data/aapl-2012-yahoofinance.csv
+Sharpe ratio: 1.12
+</pre></div>
+</div>
+<p>最终结果绘制如下图所示:</p>
+<img alt="_images/sma_crossover.png" src="_images/sma_crossover.png" />
+<p>你可以通过调整sma的周期得到更好的回报。</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="sample_market_timing.html" title="均线交叉择时"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="sample_vwap_momentum.html" title="VWAP动量交易"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="samples.html" >策略例子</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>

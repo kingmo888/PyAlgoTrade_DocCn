@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyAlgoTrade 文档 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="#" />
+    <link rel="next" title="简介" href="intro.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="简介"
+             accesskey="N">下一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">PyAlgoTrade 0.17 文档</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">內容目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PyAlgoTrade 文档</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="intro.html"
+                        title="下一章">简介</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyalgotrade">
+<h1>PyAlgoTrade 文档<a class="headerlink" href="#pyalgotrade" title="永久链接至标题">¶</a></h1>
+<p>目录:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">简明教程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#id2">交易</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#id3">优化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#id4">绘图</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">代码的文档说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bar.html">bar &#8211; 品种的价格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataseries.html">dataseries &#8211; 数据序列基类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feed.html">feed &#8211; 数据源基类</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="feed.html#module-pyalgotrade.feed.csvfeed">CSV 支持</a></li>
+<li class="toctree-l3"><a class="reference internal" href="feed.html#id1">CSV 支持的例子</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="barfeed.html">barfeed &#8211; Bar数据来源</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="barfeed.html#module-pyalgotrade.barfeed.csvfeed">CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="barfeed.html#yahoo-finance">Yahoo! Finance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="barfeed.html#module-pyalgotrade.barfeed.googlefeed">Google Finance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="barfeed.html#module-pyalgotrade.barfeed.quandlfeed">Quandl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="barfeed.html#module-pyalgotrade.barfeed.ninjatraderfeed">Ninja Trader</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="technical.html">technical &#8211; 技术指标</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="technical.html#id1">例子</a></li>
+<li class="toctree-l3"><a class="reference internal" href="technical.html#module-pyalgotrade.technical.ma">移动平均线</a></li>
+<li class="toctree-l3"><a class="reference internal" href="technical.html#module-pyalgotrade.technical.macd">动量指标</a></li>
+<li class="toctree-l3"><a class="reference internal" href="technical.html#module-pyalgotrade.technical.atr">其他指标</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="broker.html">broker &#8211; 订单管理类</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="broker.html#module-pyalgotrade.broker">基类和模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="broker.html#module-pyalgotrade.broker.backtesting">回测模块和类</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="strategy.html">strategy &#8211; 策略基类</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="strategy.html#module-pyalgotrade.strategy">Strategy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="strategy.html#module-pyalgotrade.strategy.position">Position</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stratanalyzer.html">stratanalyzer &#8211; Strategy analyzers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="stratanalyzer.html#module-pyalgotrade.stratanalyzer.returns">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stratanalyzer.html#module-pyalgotrade.stratanalyzer.sharpe">Sharpe Ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stratanalyzer.html#module-pyalgotrade.stratanalyzer.drawdown">DrawDown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stratanalyzer.html#module-pyalgotrade.stratanalyzer.trades">Trades</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stratanalyzer.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plotter.html">plotter &#8211; Strategy plotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimizer.html">optimizer &#8211; Parallel optimizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="marketsession.html">marketsession &#8211; Market sessions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">工具</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#yahoo-finance">Yahoo! Finance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#module-pyalgotrade.tools.quandl">Quandl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#module-pyalgotrade.tools.resample">BarFeed resampling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="eventprofiler.html">Event profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="eventprofiler.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xignite.html">Xignite support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xignite_ref.html">xignite &#8211; Xignite reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="xignite_ref.html#module-pyalgotrade.xignite.barfeed">Feeds</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="xignite_example.html">Xignite Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bitcoin.html">Bitcoin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bitstamp.html">Bitstamp support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bitstamp_ref.html">bitstamp &#8211; Bitstamp reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bitstamp_example.html">Bitstamp Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bitcoincharts.html">Bitcoin Charts support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bitcoincharts_ref.html">bitcoincharts &#8211; Bitcoin Charts reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bitcoincharts_example.html">Bitcoin Charts example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="twitter.html">Twitter support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="twitter_ref.html">twitter &#8211; Twitter feed reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="twitter_ref.html#module-pyalgotrade.twitter.feed">Feed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="twitter_example.html">Twitter Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="talib.html">TA-Lib integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compinvpart1.html">Computational Investing Part I</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compinvpart1.html#homework-1">Homework 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compinvpart1.html#homework-3-and-4">Homework 3 and 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">策略例子</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#id2">动量交易</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sample_vwap_momentum.html">VWAP动量交易</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_sma_crossover.html">SMA 交叉</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_market_timing.html">均线交叉择时</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#id3">均值回归</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sample_statarb_erniechan.html">Ernie Chan&#8217;s 黄金 vs. 黄金矿工</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_bbands.html">布林带</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_rsi2.html">RSI2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="samples.html#id4">其他</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sample_quandl.html">Quandl 合集</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="永久链接至标题">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span>索引</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>模块索引</span></a></li>
+<li><a class="reference internal" href="search.html"><span>搜索页面</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="简介"
+             >下一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">PyAlgoTrade 0.17 文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>

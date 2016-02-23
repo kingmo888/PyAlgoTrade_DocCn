@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>feed – 数据源基类 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="index.html" />
+    <link rel="up" title="代码的文档说明" href="code.html" />
+    <link rel="next" title="barfeed – Bar数据来源" href="barfeed.html" />
+    <link rel="prev" title="dataseries – 数据序列基类" href="dataseries.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="barfeed.html" title="barfeed – Bar数据来源"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="dataseries.html" title="dataseries – 数据序列基类"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" accesskey="U">代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">內容目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">feed &#8211; 数据源基类</a><ul>
+<li><a class="reference internal" href="#module-pyalgotrade.feed.csvfeed">CSV 支持</a></li>
+<li><a class="reference internal" href="#id1">CSV 支持的例子</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="dataseries.html"
+                        title="上一章">dataseries &#8211; 数据序列基类</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="barfeed.html"
+                        title="下一章">barfeed &#8211; Bar数据来源</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/feed.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="feed">
+<h1>feed &#8211; 数据源基类<a class="headerlink" href="#feed" title="永久链接至标题">¶</a></h1>
+<p>Feeds 是将时间序列抽象化
+当这些在事件调度循环时，会推送一个新的可用数据。
+When these are included in the event dispatch loop, they emit an event as new data is available.
+Feeds are also responsible for updating the <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> associated
+with each piece of data that the feed provides.</p>
+<p><strong>当前位置是关于数据源基类的，要了解bar的数据源请查阅：</strong> <a class="reference internal" href="barfeed.html#barfeed-label"><span>barfeed &#8211; Bar数据来源</span></a> <strong>板块.</strong></p>
+<span class="target" id="module-pyalgotrade.feed"></span><dl class="class">
+<dt id="pyalgotrade.feed.BaseFeed">
+<em class="property">class </em><code class="descclassname">pyalgotrade.feed.</code><code class="descname">BaseFeed</code><span class="sig-paren">(</span><em>maxLen</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.feed.BaseFeed" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.observer.Subject</span></code></p>
+<p>数据源基类</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>maxLen</strong> (<em>int.</em>) &#8211; 每一个 <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 驻留的最大数量。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">这是一个基类，不应该直接被调用。</p>
+</div>
+<dl class="method">
+<dt id="pyalgotrade.feed.BaseFeed.__contains__">
+<code class="descname">__contains__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.feed.BaseFeed.__contains__" title="永久链接至目标">¶</a></dt>
+<dd><p>如果给定的 <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 类型的key有效时，返回True。</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.feed.BaseFeed.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.feed.BaseFeed.__getitem__" title="永久链接至目标">¶</a></dt>
+<dd><p>返回给定key的 <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.feed.BaseFeed.getNewValuesEvent">
+<code class="descname">getNewValuesEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.feed.BaseFeed.getNewValuesEvent" title="永久链接至目标">¶</a></dt>
+<dd><p>当一个新的值可用时，新的事件将被触发.
+订阅一个可调用对象需要两个参数：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>一个 <code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code> 实例。</li>
+<li>新的值。</li>
+</ol>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="module-pyalgotrade.feed.csvfeed">
+<span id="csv"></span><h2>CSV 支持<a class="headerlink" href="#module-pyalgotrade.feed.csvfeed" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="pyalgotrade.feed.csvfeed.Feed">
+<em class="property">class </em><code class="descclassname">pyalgotrade.feed.csvfeed.</code><code class="descname">Feed</code><span class="sig-paren">(</span><em>dateTimeColumn</em>, <em>dateTimeFormat</em>, <em>converter=None</em>, <em>delimiter='</em>, <em>'</em>, <em>timezone=None</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.feed.csvfeed.Feed" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.feed.csvfeed.BaseFeed</span></code></p>
+<p>一个从格式化后的CSV文件加载数据的数据源。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dateTimeColumn</strong> (<em>string.</em>) &#8211; 带有datetime列的列名.</li>
+<li><strong>dateTimeFormat</strong> (<em>string.</em>) &#8211; datetime的转换格式. datetime.datetime.strptime 将用它对该列进行格式转换.</li>
+<li><strong>converter</strong> (<em>function.</em>) &#8211; 一个有两个参数（列名和值）的转换函数。它将转换字符串到其他格式。默认转换为float，如果转换失败则返回string原值。</li>
+<li><strong>delimiter</strong> (<em>string.</em>) &#8211; 字符串分隔符.</li>
+<li><strong>timezone</strong> (<em>A pytz timezone.</em>) &#8211; The timezone to use to localize datetimes. Check <a class="reference internal" href="marketsession.html#module-pyalgotrade.marketsession" title="pyalgotrade.marketsession"><code class="xref py py-mod docutils literal"><span class="pre">pyalgotrade.marketsession</span></code></a>.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values that each <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> will hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.feed.csvfeed.Feed.addValuesFromCSV">
+<code class="descname">addValuesFromCSV</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.feed.csvfeed.Feed.addValuesFromCSV" title="永久链接至目标">¶</a></dt>
+<dd><p>Loads values from a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>path</strong> (<em>string.</em>) &#8211; The path to the CSV file.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id1">
+<h2>CSV 支持的例子<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>一个带有以下格式的文件</p>
+<div class="highlight-python"><div class="highlight"><pre>Date,USD,GBP,EUR
+2013-09-29,1333.0,831.203,986.75
+2013-09-22,1349.25,842.755,997.671
+2013-09-15,1318.5,831.546,993.969
+2013-09-08,1387.0,886.885,1052.911
+.
+.
+.
+</pre></div>
+</div>
+<p>像这样引入并使用:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade.feed</span> <span class="kn">import</span> <span class="n">csvfeed</span>
+
+<span class="n">feed</span> <span class="o">=</span> <span class="n">csvfeed</span><span class="o">.</span><span class="n">Feed</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">feed</span><span class="o">.</span><span class="n">addValuesFromCSV</span><span class="p">(</span><span class="s">&quot;quandl_gold_2.csv&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">dateTime</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">feed</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dateTime</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出结果如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>1968-04-07 00:00:00 {&#39;USD&#39;: 37.0, &#39;GBP&#39;: 15.3875, &#39;EUR&#39;: &#39;&#39;}
+1968-04-14 00:00:00 {&#39;USD&#39;: 38.0, &#39;GBP&#39;: 15.8208, &#39;EUR&#39;: &#39;&#39;}
+1968-04-21 00:00:00 {&#39;USD&#39;: 37.65, &#39;GBP&#39;: 15.6833, &#39;EUR&#39;: &#39;&#39;}
+1968-04-28 00:00:00 {&#39;USD&#39;: 38.65, &#39;GBP&#39;: 16.1271, &#39;EUR&#39;: &#39;&#39;}
+1968-05-05 00:00:00 {&#39;USD&#39;: 39.1, &#39;GBP&#39;: 16.3188, &#39;EUR&#39;: &#39;&#39;}
+1968-05-12 00:00:00 {&#39;USD&#39;: 39.6, &#39;GBP&#39;: 16.5625, &#39;EUR&#39;: &#39;&#39;}
+1968-05-19 00:00:00 {&#39;USD&#39;: 41.5, &#39;GBP&#39;: 17.3958, &#39;EUR&#39;: &#39;&#39;}
+1968-05-26 00:00:00 {&#39;USD&#39;: 41.75, &#39;GBP&#39;: 17.5104, &#39;EUR&#39;: &#39;&#39;}
+1968-06-02 00:00:00 {&#39;USD&#39;: 41.95, &#39;GBP&#39;: 17.6, &#39;EUR&#39;: &#39;&#39;}
+1968-06-09 00:00:00 {&#39;USD&#39;: 41.25, &#39;GBP&#39;: 17.3042, &#39;EUR&#39;: &#39;&#39;}
+.
+.
+.
+2013-07-28 00:00:00 {&#39;USD&#39;: 1331.0, &#39;GBP&#39;: 864.23, &#39;EUR&#39;: 1001.505}
+2013-08-04 00:00:00 {&#39;USD&#39;: 1309.25, &#39;GBP&#39;: 858.637, &#39;EUR&#39;: 986.921}
+2013-08-11 00:00:00 {&#39;USD&#39;: 1309.0, &#39;GBP&#39;: 843.156, &#39;EUR&#39;: 979.79}
+2013-08-18 00:00:00 {&#39;USD&#39;: 1369.25, &#39;GBP&#39;: 875.424, &#39;EUR&#39;: 1024.964}
+2013-08-25 00:00:00 {&#39;USD&#39;: 1377.5, &#39;GBP&#39;: 885.738, &#39;EUR&#39;: 1030.6}
+2013-09-01 00:00:00 {&#39;USD&#39;: 1394.75, &#39;GBP&#39;: 901.292, &#39;EUR&#39;: 1055.749}
+2013-09-08 00:00:00 {&#39;USD&#39;: 1387.0, &#39;GBP&#39;: 886.885, &#39;EUR&#39;: 1052.911}
+2013-09-15 00:00:00 {&#39;USD&#39;: 1318.5, &#39;GBP&#39;: 831.546, &#39;EUR&#39;: 993.969}
+2013-09-22 00:00:00 {&#39;USD&#39;: 1349.25, &#39;GBP&#39;: 842.755, &#39;EUR&#39;: 997.671}
+2013-09-29 00:00:00 {&#39;USD&#39;: 1333.0, &#39;GBP&#39;: 831.203, &#39;EUR&#39;: 986.75}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="barfeed.html" title="barfeed – Bar数据来源"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="dataseries.html" title="dataseries – 数据序列基类"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" >代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>

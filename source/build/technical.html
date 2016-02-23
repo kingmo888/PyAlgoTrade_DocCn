@@ -1,0 +1,821 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>technical – 技术指标 &mdash; PyAlgoTrade 0.17 文档</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.17',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 PyAlgoTrade 0.17 文档 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="PyAlgoTrade 0.17 文档" href="index.html" />
+    <link rel="up" title="代码的文档说明" href="code.html" />
+    <link rel="next" title="broker – 订单管理类" href="broker.html" />
+    <link rel="prev" title="barfeed – Bar数据来源" href="barfeed.html" />
+ 
+
+<!-- Google analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1180709-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End Google analytics -->
+
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="broker.html" title="broker – 订单管理类"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="barfeed.html" title="barfeed – Bar数据来源"
+             accesskey="P">上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" accesskey="U">代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">內容目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">technical &#8211; 技术指标</a><ul>
+<li><a class="reference internal" href="#id1">例子</a></li>
+<li><a class="reference internal" href="#module-pyalgotrade.technical.ma">移动平均线</a></li>
+<li><a class="reference internal" href="#module-pyalgotrade.technical.macd">动量指标</a></li>
+<li><a class="reference internal" href="#module-pyalgotrade.technical.atr">其他指标</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="barfeed.html"
+                        title="上一章">barfeed &#8211; Bar数据来源</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="broker.html"
+                        title="下一章">broker &#8211; 订单管理类</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/technical.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    输入相关的术语，模块，类或者函数名称进行搜索
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyalgotrade.technical">
+<span id="technical"></span><h1>technical &#8211; 技术指标<a class="headerlink" href="#module-pyalgotrade.technical" title="永久链接至标题">¶</a></h1>
+<dl class="class">
+<dt id="pyalgotrade.technical.EventWindow">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.</code><code class="descname">EventWindow</code><span class="sig-paren">(</span><em>windowSize</em>, <em>dtype=&lt;class 'float'&gt;</em>, <em>skipNone=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.EventWindow" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>事件窗口类负责在一个移动滑窗中进行计算。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>windowSize</strong> (<em>int.</em>) &#8211; 滑窗的大小。必须大于0。</li>
+<li><strong>dtype</strong> (<em>data-type.</em>) &#8211; 数组所需的数据类型</li>
+<li><strong>skipNone</strong> (<em>boolean.</em>) &#8211; 是否跳过空值。默认为True 。一般在滑窗中不含空值的情况下使用True。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">这是一个基类，不应该直接被调用.</p>
+</div>
+<dl class="method">
+<dt id="pyalgotrade.technical.EventWindow.getValue">
+<code class="descname">getValue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.EventWindow.getValue" title="永久链接至目标">¶</a></dt>
+<dd><p>通过滑窗中的值来计算一个值</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.EventWindow.getValues">
+<code class="descname">getValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.EventWindow.getValues" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns a numpy.array with the values in the window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.EventWindow.getWindowSize">
+<code class="descname">getWindowSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.EventWindow.getWindowSize" title="永久链接至目标">¶</a></dt>
+<dd><p>返回滑窗的大小</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.EventBasedFilter">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.</code><code class="descname">EventBasedFilter</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>eventWindow</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.EventBasedFilter" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.SequenceDataSeries" title="pyalgotrade.dataseries.SequenceDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.SequenceDataSeries</span></code></a></p>
+<p>EventBasedFilter 类负责接收一个 <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 类型的新值
+并通过 <a class="reference internal" href="#pyalgotrade.technical.EventWindow" title="pyalgotrade.technical.EventWindow"><code class="xref py py-class docutils literal"><span class="pre">EventWindow</span></code></a> 来计算一个新值。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; 需要被计算指标的DataSeries实例。</li>
+<li><strong>eventWindow</strong> (<a class="reference internal" href="#pyalgotrade.technical.EventWindow" title="pyalgotrade.technical.EventWindow"><code class="xref py py-class docutils literal"><span class="pre">EventWindow</span></code></a>.) &#8211; 用于计算新值的EventWindow实例。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。
+:type maxLen: int.</p>
+</dd></dl>
+
+<div class="section" id="id1">
+<h2>例子<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>下面的这个例子演示了如何结合 <a class="reference internal" href="#pyalgotrade.technical.EventWindow" title="pyalgotrade.technical.EventWindow"><code class="xref py py-class docutils literal"><span class="pre">EventWindow</span></code></a> 和  <a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">EventBasedFilter</span></code></a> 来计算一个指标：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">dataseries</span>
+<span class="kn">from</span> <span class="nn">pyalgotrade</span> <span class="kn">import</span> <span class="n">technical</span>
+
+
+<span class="c"># An EventWindow is responsible for making calculations using a window of values.</span>
+<span class="k">class</span> <span class="nc">Accumulator</span><span class="p">(</span><span class="n">technical</span><span class="o">.</span><span class="n">EventWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">windowFull</span><span class="p">():</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getValues</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+<span class="c"># Build a sequence based DataSeries.</span>
+<span class="n">seqDS</span> <span class="o">=</span> <span class="n">dataseries</span><span class="o">.</span><span class="n">SequenceDataSeries</span><span class="p">()</span>
+<span class="c"># Wrap it with a filter that will get fed as new values get added to the underlying DataSeries.</span>
+<span class="n">accum</span> <span class="o">=</span> <span class="n">technical</span><span class="o">.</span><span class="n">EventBasedFilter</span><span class="p">(</span><span class="n">seqDS</span><span class="p">,</span> <span class="n">Accumulator</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c"># Put in some values.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+    <span class="n">seqDS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c"># Get some values.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accum</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c"># Not enough values yet.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accum</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c"># Not enough values yet.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accum</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c"># Ok, now we should have at least 3 values.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accum</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="c"># Get the last value, which should be equal to 49 + 48 + 47.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">accum</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>输出内容如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">None</span>
+<span class="bp">None</span>
+<span class="mf">3.0</span>
+<span class="mf">6.0</span>
+<span class="mf">144.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-pyalgotrade.technical.ma">
+<span id="id2"></span><h2>移动平均线<a class="headerlink" href="#module-pyalgotrade.technical.ma" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="pyalgotrade.technical.ma.SMA">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.ma.</code><code class="descname">SMA</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.ma.SMA" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>简单移动平均指标.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; 周期</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.ma.EMA">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.ma.</code><code class="descname">EMA</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.ma.EMA" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>指数移动平均指标.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; 周期。必须为大于1的整数</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.ma.WMA">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.ma.</code><code class="descname">WMA</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>weights</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.ma.WMA" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>加权移动平均指标.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>weights</strong> (<em>list.</em>) &#8211; A list of int/float with the weights.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.vwap"></span><dl class="class">
+<dt id="pyalgotrade.technical.vwap.VWAP">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.vwap.</code><code class="descname">VWAP</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>useTypicalPrice=False</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.vwap.VWAP" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>成交加权平均价指标.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.bards.BarDataSeries" title="pyalgotrade.dataseries.bards.BarDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.bards.BarDataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; 用于计算VWAP的长度.</li>
+<li><strong>useTypicalPrice</strong> (<em>boolean.</em>) &#8211; 默认为假。是否用典型价代替收盘价。</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyalgotrade.technical.macd">
+<span id="id3"></span><h2>动量指标<a class="headerlink" href="#module-pyalgotrade.technical.macd" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="pyalgotrade.technical.macd.MACD">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.macd.</code><code class="descname">MACD</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>fastEMA</em>, <em>slowEMA</em>, <em>signalEMA</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.macd.MACD" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.SequenceDataSeries" title="pyalgotrade.dataseries.SequenceDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.SequenceDataSeries</span></code></a></p>
+<p>MACD指标的定义： <a class="reference external" href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:moving_average_conve">http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:moving_average_conve</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>fastEMA</strong> (<em>int.</em>) &#8211; 快线移动平均线参数</li>
+<li><strong>slowEMA</strong> (<em>int.</em>) &#8211; 慢线移动平均线参数</li>
+<li><strong>signalEMA</strong> (<em>int.</em>) &#8211; 移动平均线参数</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.technical.macd.MACD.getHistogram">
+<code class="descname">getHistogram</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.macd.MACD.getHistogram" title="永久链接至目标">¶</a></dt>
+<dd><p>返回:class:<cite>pyalgotrade.dataseries.DataSeries</cite> 类型的直方图 (the difference between the MACD and the Signal).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.macd.MACD.getSignal">
+<code class="descname">getSignal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.macd.MACD.getSignal" title="永久链接至目标">¶</a></dt>
+<dd><p>返回MACD的 <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 类型的移动平均线.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.rsi"></span><dl class="class">
+<dt id="pyalgotrade.technical.rsi.RSI">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.rsi.</code><code class="descname">RSI</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.rsi.RSI" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>相对强弱指数指标（RSI）的定义： <a class="reference external" href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi">http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; 周期. 提示：如果周期为 <strong>n</strong> ，则  <strong>n+1</strong>  的值将被使用。因此必须大于1.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.stoch"></span><dl class="class">
+<dt id="pyalgotrade.technical.stoch.StochasticOscillator">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.stoch.</code><code class="descname">StochasticOscillator</code><span class="sig-paren">(</span><em>barDataSeries</em>, <em>period</em>, <em>dSMAPeriod=3</em>, <em>useAdjustedValues=False</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.stoch.StochasticOscillator" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>随机振荡指标定义：
+<a class="reference external" href="http://stockcharts.com/school/doku.php?st=stochastic+oscillator&amp;id=chart_school:technical_indicators:stochastic_oscillator_fast_slow_and_full">http://stockcharts.com/school/doku.php?st=stochastic+oscillator&amp;id=chart_school:technical_indicators:stochastic_oscillator_fast_slow_and_full</a>.
+Note that the value returned by this filter is %K. To access %D use <a class="reference internal" href="#pyalgotrade.technical.stoch.StochasticOscillator.getD" title="pyalgotrade.technical.stoch.StochasticOscillator.getD"><code class="xref py py-meth docutils literal"><span class="pre">getD()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>barDataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.bards.BarDataSeries" title="pyalgotrade.dataseries.bards.BarDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.bards.BarDataSeries</span></code></a>.) &#8211; 需要被计算指标的dataSeries.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; 周期. 必须大于1.</li>
+<li><strong>dSMAPeriod</strong> (<em>int.</em>) &#8211; The %D SMA period. Must be &gt; 1.</li>
+<li><strong>useAdjustedValues</strong> (<em>boolean.</em>) &#8211; 默认为假。是否用Low/High/Close的复权价.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; 存放的最大值。当队列已满，一旦添加新的条目进来，将会在相反位置删除对应数量的条目。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.technical.stoch.StochasticOscillator.getD">
+<code class="descname">getD</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.stoch.StochasticOscillator.getD" title="永久链接至目标">¶</a></dt>
+<dd><p>返回 <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a> 类型的 %D 值.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.roc"></span><dl class="class">
+<dt id="pyalgotrade.technical.roc.RateOfChange">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.roc.</code><code class="descname">RateOfChange</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>valuesAgo</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.roc.RateOfChange" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>Rate of change filter as described in <a class="reference external" href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:rate_of_change">http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:rate_of_change</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>valuesAgo</strong> (<em>int.</em>) &#8211; The number of values back that a given value will compare to. Must be &gt; 0.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyalgotrade.technical.atr">
+<span id="id4"></span><h2>其他指标<a class="headerlink" href="#module-pyalgotrade.technical.atr" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="pyalgotrade.technical.atr.ATR">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.atr.</code><code class="descname">ATR</code><span class="sig-paren">(</span><em>barDataSeries</em>, <em>period</em>, <em>useAdjustedValues=False</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.atr.ATR" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>Average True Range filter as described in <a class="reference external" href="http://stockcharts.com/help/doku.php?id=chart_school:technical_indicators:average_true_range_a">http://stockcharts.com/help/doku.php?id=chart_school:technical_indicators:average_true_range_a</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>barDataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.bards.BarDataSeries" title="pyalgotrade.dataseries.bards.BarDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.bards.BarDataSeries</span></code></a>.) &#8211; The BarDataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The average period. Must be &gt; 1.</li>
+<li><strong>useAdjustedValues</strong> (<em>boolean.</em>) &#8211; True to use adjusted Low/High/Close values.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.bollinger"></span><dl class="class">
+<dt id="pyalgotrade.technical.bollinger.BollingerBands">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.bollinger.</code><code class="descname">BollingerBands</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>numStdDev</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.bollinger.BollingerBands" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Bollinger Bands filter as described in <a class="reference external" href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_bands">http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_bands</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use in the calculation. Must be &gt; 1.</li>
+<li><strong>numStdDev</strong> (<em>int.</em>) &#8211; The number of standard deviations to use for the upper and lower bands.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.technical.bollinger.BollingerBands.getLowerBand">
+<code class="descname">getLowerBand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.bollinger.BollingerBands.getLowerBand" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns the lower band as a <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.bollinger.BollingerBands.getMiddleBand">
+<code class="descname">getMiddleBand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.bollinger.BollingerBands.getMiddleBand" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns the middle band as a <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.bollinger.BollingerBands.getUpperBand">
+<code class="descname">getUpperBand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.bollinger.BollingerBands.getUpperBand" title="永久链接至目标">¶</a></dt>
+<dd><p>Returns the upper band as a <a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.cross"></span><dl class="function">
+<dt id="pyalgotrade.technical.cross.cross_above">
+<code class="descclassname">pyalgotrade.technical.cross.</code><code class="descname">cross_above</code><span class="sig-paren">(</span><em>values1</em>, <em>values2</em>, <em>start=-2</em>, <em>end=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.cross.cross_above" title="永久链接至目标">¶</a></dt>
+<dd><p>Checks for a cross above conditions over the specified period between two DataSeries objects.</p>
+<p>It returns the number of times values1 crossed above values2 during the given period.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>values1</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries that crosses.</li>
+<li><strong>values2</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries being crossed.</li>
+<li><strong>start</strong> (<em>int.</em>) &#8211; The start of the range.</li>
+<li><strong>end</strong> (<em>int.</em>) &#8211; The end of the range.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">The default start and end values check for cross above conditions over the last 2 values.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyalgotrade.technical.cross.cross_below">
+<code class="descclassname">pyalgotrade.technical.cross.</code><code class="descname">cross_below</code><span class="sig-paren">(</span><em>values1</em>, <em>values2</em>, <em>start=-2</em>, <em>end=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.cross.cross_below" title="永久链接至目标">¶</a></dt>
+<dd><p>Checks for a cross below conditions over the specified period between two DataSeries objects.</p>
+<p>It returns the number of times values1 crossed below values2 during the given period.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>values1</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries that crosses.</li>
+<li><strong>values2</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries being crossed.</li>
+<li><strong>start</strong> (<em>int.</em>) &#8211; The start of the range.</li>
+<li><strong>end</strong> (<em>int.</em>) &#8211; The end of the range.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">The default start and end values check for cross below conditions over the last 2 values.</p>
+</div>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.cumret"></span><dl class="class">
+<dt id="pyalgotrade.technical.cumret.CumulativeReturn">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.cumret.</code><code class="descname">CumulativeReturn</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.cumret.CumulativeReturn" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>This filter calculates cumulative returns over another dataseries.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.highlow"></span><dl class="class">
+<dt id="pyalgotrade.technical.highlow.High">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.highlow.</code><code class="descname">High</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.highlow.High" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>This filter calculates the highest value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the highest value.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.highlow.Low">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.highlow.</code><code class="descname">Low</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.highlow.Low" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>This filter calculates the lowest value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the lowest value.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.hurst"></span><dl class="class">
+<dt id="pyalgotrade.technical.hurst.HurstExponent">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.hurst.</code><code class="descname">HurstExponent</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>minLags=2</em>, <em>maxLags=20</em>, <em>logValues=True</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.hurst.HurstExponent" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>Hurst exponent filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the hurst exponent.</li>
+<li><strong>minLags</strong> (<em>int.</em>) &#8211; The minimum number of lags to use. Must be &gt;= 2.</li>
+<li><strong>maxLags</strong> (<em>int.</em>) &#8211; The maximum number of lags to use. Must be &gt; minLags.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded
+from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.linebreak"></span><dl class="class">
+<dt id="pyalgotrade.technical.linebreak.Line">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.linebreak.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>low</em>, <em>high</em>, <em>dateTime</em>, <em>white</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.Line" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A line in a line break chart.</p>
+<dl class="method">
+<dt id="pyalgotrade.technical.linebreak.Line.getDateTime">
+<code class="descname">getDateTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.Line.getDateTime" title="永久链接至目标">¶</a></dt>
+<dd><p>The datetime.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.linebreak.Line.getHigh">
+<code class="descname">getHigh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.Line.getHigh" title="永久链接至目标">¶</a></dt>
+<dd><p>The high value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.linebreak.Line.getLow">
+<code class="descname">getLow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.Line.getLow" title="永久链接至目标">¶</a></dt>
+<dd><p>The low value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.linebreak.Line.isBlack">
+<code class="descname">isBlack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.Line.isBlack" title="永久链接至目标">¶</a></dt>
+<dd><p>True if the line is black (falling prices).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyalgotrade.technical.linebreak.Line.isWhite">
+<code class="descname">isWhite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.Line.isWhite" title="永久链接至目标">¶</a></dt>
+<dd><p>True if the line is white (rising prices).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.linebreak.LineBreak">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.linebreak.</code><code class="descname">LineBreak</code><span class="sig-paren">(</span><em>barDataSeries</em>, <em>reversalLines</em>, <em>useAdjustedValues=False</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linebreak.LineBreak" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.SequenceDataSeries" title="pyalgotrade.dataseries.SequenceDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.SequenceDataSeries</span></code></a></p>
+<p>Line Break filter as described in <a class="reference external" href="http://stockcharts.com/help/doku.php?id=chart_school:chart_analysis:three_line_break">http://stockcharts.com/help/doku.php?id=chart_school:chart_analysis:three_line_break</a>
+.
+This is a DataSeries of <a class="reference internal" href="#pyalgotrade.technical.linebreak.Line" title="pyalgotrade.technical.linebreak.Line"><code class="xref py py-class docutils literal"><span class="pre">Line</span></code></a> instances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>barDataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.bards.BarDataSeries" title="pyalgotrade.dataseries.bards.BarDataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.bards.BarDataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>reversalLines</strong> (<em>int.</em>) &#8211; The number of lines back to check to calculate a reversal. Must be greater than 1.</li>
+<li><strong>useAdjustedValues</strong> (<em>boolean.</em>) &#8211; True to use adjusted high/low/close values.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.
+This value can&#8217;t be smaller than reversalLines.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.linreg"></span><dl class="class">
+<dt id="pyalgotrade.technical.linreg.LeastSquaresRegression">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.linreg.</code><code class="descname">LeastSquaresRegression</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>windowSize</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linreg.LeastSquaresRegression" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>Calculates values based on a least-squares regression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>windowSize</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the regression.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyalgotrade.technical.linreg.LeastSquaresRegression.getValueAt">
+<code class="descname">getValueAt</code><span class="sig-paren">(</span><em>dateTime</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linreg.LeastSquaresRegression.getValueAt" title="永久链接至目标">¶</a></dt>
+<dd><p>Calculates the value at a given time based on the regression line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><strong>dateTime</strong> (<code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code>.) &#8211; The datetime to calculate the value at.
+Will return None if there are not enough values in the underlying DataSeries.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.linreg.Slope">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.linreg.</code><code class="descname">Slope</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.linreg.Slope" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>The Slope filter calculates the slope of a least-squares regression line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the slope.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">This filter ignores the time elapsed between the different values.</p>
+</div>
+</dd></dl>
+
+<span class="target" id="module-pyalgotrade.technical.stats"></span><dl class="class">
+<dt id="pyalgotrade.technical.stats.StdDev">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.stats.</code><code class="descname">StdDev</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>ddof=0</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.stats.StdDev" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>Standard deviation filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the Standard deviation.</li>
+<li><strong>ddof</strong> (<em>int.</em>) &#8211; Delta degrees of freedom.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyalgotrade.technical.stats.ZScore">
+<em class="property">class </em><code class="descclassname">pyalgotrade.technical.stats.</code><code class="descname">ZScore</code><span class="sig-paren">(</span><em>dataSeries</em>, <em>period</em>, <em>ddof=0</em>, <em>maxLen=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pyalgotrade.technical.stats.ZScore" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#pyalgotrade.technical.EventBasedFilter" title="pyalgotrade.technical.EventBasedFilter"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.technical.EventBasedFilter</span></code></a></p>
+<p>Z-Score filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataSeries</strong> (<a class="reference internal" href="dataseries.html#pyalgotrade.dataseries.DataSeries" title="pyalgotrade.dataseries.DataSeries"><code class="xref py py-class docutils literal"><span class="pre">pyalgotrade.dataseries.DataSeries</span></code></a>.) &#8211; The DataSeries instance being filtered.</li>
+<li><strong>period</strong> (<em>int.</em>) &#8211; The number of values to use to calculate the Z-Score.</li>
+<li><strong>ddof</strong> (<em>int.</em>) &#8211; Delta degrees of freedom to use for the standard deviation.</li>
+<li><strong>maxLen</strong> (<em>int.</em>) &#8211; The maximum number of values to hold.
+Once a bounded length is full, when new items are added, a corresponding number of items are discarded from the opposite end.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="broker.html" title="broker – 订单管理类"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="barfeed.html" title="barfeed – Bar数据来源"
+             >上一页</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PyAlgoTrade 0.17 文档</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="code.html" >代码的文档说明</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; 版权所有 2014-2015, 李增海翻译 QQ860007600.
+    </div>
+  </body>
+</html>
