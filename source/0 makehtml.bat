@@ -1,1 +1,0 @@
-sphinx-build C:\Users\lizenghai\Downloads\transtate_pyat\doc C:\Users\lizenghai\Downloads\transtate_pyat\doc\build

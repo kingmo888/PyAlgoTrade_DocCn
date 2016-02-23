@@ -21,5 +21,17 @@ PyAlgoTrade基于Python2.7开发并依托于以下python库:
 
     pip install pyalgotrade
 
-译者注：0.17版本已经迁移到Python3.x上，原版只能在py27环境下运行，请谨慎升级。
+译者注：
+
+0.17版本已经迁移到Python3.x上，原版只能在py27环境下运行，请谨慎升级。
 down:PyAlgoTrade0.16_for_py3
+
+2016-2-23: ::
+
+    目前，已有国内版本
+    地址：https://github.com/Yam-cn/pyalgotrade-cn
+    基于py2.7，支持A股交易、以及封装了tushare的A股即时行情
+    项目QQ群：300349971
+
+
+水平有限，如有疏漏，敬请谅解！欢迎一起翻译&debug!
